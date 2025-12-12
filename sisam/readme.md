@@ -1,4 +1,4 @@
-****1. Unified Misinformation Detection Dashboard (Streamlit Frontend)**
+**1. Unified Misinformation Detection Dashboard (Streamlit Frontend)**
 This repository contains the interactive frontend dashboard for the social media detection system. This application serves as the primary user interface, connecting to the FastAPI backend to visualize credibility scores for articles and bot probabilities for user profiles.
 
 **2.Key Features**
@@ -23,4 +23,4 @@ The dashboard is divided into three functional tabs:
 
 **4.My Role**
 
-I developed frontend application, including the layout, API integration logic, input forms, and data visualization presentation layer and coordinated with my team for its integration 
+I developed frontend application, including the layout, API integration logic, input forms, and data visualization presentation layer and coordinated with my team for integration with backend. 
