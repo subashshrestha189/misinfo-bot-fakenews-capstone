@@ -11,11 +11,10 @@ This backend powers the **Social Media Bot and Fake News Detection System**, pro
 # Key Responsibilities
 
 * Loads the complete ML stack (DistilBERT, Random Forest, label encoders)
-* Provides three main inference endpoints:
+*  main inference endpoints:
 
   * `/analyze/article` → Fake news classification
   * `/analyze/user` → Bot probability + risk score
-  * `/analyze/full` → Unified content + user + heuristic trust score
 * Manages input validation, error handling, and standardized JSON output
 * Serves as the main backend used by the Streamlit dashboard
 
@@ -25,7 +24,7 @@ The development of this file was a **joint effort between Laxman Neupane and Sub
 
 ---
 
-## 📌 2. `config.py` — Central Configuration Module
+# 2. `config.py` — Central Configuration Module
 
 This module centralizes environment settings and shared constants, keeping configuration clean and maintainable.
 
@@ -51,11 +50,11 @@ This keeps backend scripts cleaner and reduces error risks.
 
 ---
 
-## 📌 4. `mini_app.py` — Lightweight Local Testing API
+##  4. `mini_app.py` — Lightweight Local Testing API
 
 A minimal FastAPI instance designed for rapid testing of model components.
 
-### Why It Exists
+# Why It Exists
 
 * Enables quick debugging without running the entire system
 * Useful for testing preprocessing, BERT inference, or bot features independently
@@ -64,28 +63,8 @@ A minimal FastAPI instance designed for rapid testing of model components.
 ---
 
 ## 🧠 Summary of Backend Structure
-
-| File            | Purpose                                                                      |
-| --------------- | ---------------------------------------------------------------------------- |
-| **app.py**      | Full inference API (bot + fake news + trust score) — *developed with Subash* |
-| **config.py**   | Environment configuration + utility helpers                                  |
-| **utils_io.py** | Modular file/directory handling utilities                                    |
-| **mini_app.py** | Lightweight inference tester                                                 |
-
-This backend follows industry principles:
-✔ modular design
-✔ no duplicated logic
-✔ scalable structure
-✔ clean integration with Streamlit frontend
-✔ easy debugging and maintainability
-
----
-
-If you want, I can also prepare a full README.md including:
-📌 setup instructions
-📌 environment installation
-📌 sample API requests
-📌 architecture diagram
-📌 contributor credits
-
-Just tell me!
+                                                                      
+ **app.py**      - Full inference API (bot + fake news + trust score) — *developed with Subash* 
+ **config.py**   - Environment configuration + utility helpers                                  
+ **utils_io.py** - Modular file/directory handling utilities                                    
+ **mini_app.py** - Lightweight inference tester                                                 
