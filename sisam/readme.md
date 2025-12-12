@@ -5,7 +5,7 @@ This repository contains the interactive frontend dashboard for the social media
 
 This dashboard provides a unified, responsive interface for two critical analysis tasks:
 
-*Fake News Classification: The Article Analyzer allows users to paste text and receive a prediction from the DistilBERT model. The dashboard presents the confidence score and detailed class probabilities through clear visualizations like bar charts.
+*Fake News Classification: The Article Analyzer allows users to paste text and receive a prediction from the DistilBERT model. The dashboard presents the confidence score and detailed class probabilities through clear visualizations.
 
 *Social Bot Detection: The User Analyzer takes inputs for key user metadata (e.g., follower counts, account age). It calculates and displays the bot probability score from the Random Forest model, along with a corresponding risk level (Low, Medium, or High).
 
