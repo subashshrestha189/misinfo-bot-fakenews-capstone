@@ -1,237 +1,158 @@
-**Social Media Bot and Fake News Detection**
-
-This repository contains a prototype system that detects **fake news articles** and estimates the likelihood that a **social media account is a bot**.
-
-We focus on two main components:
-
-1. **Fake News Analyzer**: fine-tuned DistilBERT model categorizing news articles.
-2. **Bot Detection**: Random Forest model trained on TwiBot-20 user metadata.
-
-Both models are provided through a **FastAPI** backend and an interactive **Streamlit** dashboard.
-
-This work was completed as part of the **AIDI1003 Capstone Project** at **Durham College**.
-
----
-
-## Project Objectives
-
-- Build reliable ML pipelines for detecting misinformation in news text.
-- Analyze user activity and information to identify automated (bot) behavior.
-- Integrate multiple models into a single functional API.
-- Demonstrate dataset handling, preprocessing, training, evaluation, and deployment readiness.
-
- ---
-
- ## System Overview
-
- The system contains two independent ML workflows:
-
-## Fake News Detection
-- Dataset: English Fake News dataset from HuggingFace.
-- Preprocessing: Text cleaning & tokenization.
-- Models:
-  - Baseline: **TF-IDF + Logistic Regression**
-  - Advanced: **DistilBERT fine-tuning**
-- Metrics:
-  - **Accuracy:** ~76.5% (validation)
-  - **F1-score:** ~0.49 (fast demo fine-tune)
- 
-## Bot Detection
-- Dataset: Official TwiBot-20 user metadata & labels (`user.json`, `label.csv`)
-- Feature Engineering:
-  - Activity rate
-  - Account age
-  - Bot interaction metrics
-  - Hashtag & tweet statistics
-- Model:
-  - **Random Forest Classifier**
-  - Cross-validated + probability calibration
-- Metrics:
-  - **Accuracy:** 92.2%
-  - **ROC-AUC:** ~0.77
-
----
-
-## Web Interface
-
-Our Streamlit dashboard contains the following tabs:
-
-## Article Analyzer
-Paste news article text → get:
-- Fake/Real prediction
-- Confidence score
-
-## User Analyzer
-Enter user profile metadata → get:
-- Bot probability score
-- Risk classification
-
-## Diagnostics
-System logs and internal test runs.
-
----
-
-## Project Structure
-
-misinfo-mvp/
-  src/
-     app.py - FastAPI application endpoints
-     dashboard.py - Streamlit dashboard launcher
-     Fake News Pipeline:
-         fake_news_eda.py
-         preprocess_texts.py
-         fake_news_baseline.py
-         fake_news_bert_train.py
-         fake_news_retrain.py
-         test_fake_news_bert.py
-     Bot Detection Pipeline:
-         twibot_extract.py
-         twibot_features.py
-         bot_baseline.py
-         bot_train_twibot.py
-         bot_traina_cv_calibrated.py
-         bot_infer.py
-         bot_permutation_importance.py
-     Data Utilities:
-         encode_labels.py
-         utils_io.py
-         save_summary.py
-     api helpers:
-         mini_app.py
-         config.py
-     requirements.txt
-     .gitignore
-     README.md
-
- ---
-
- ## Data and Model Storage 
-
- **Large datasets and trained models are not committed** to GitHub due to platform file size limits.
-
- Files excluded:
- - Raw CSV datasets (100MB+)
-- `.safetensors' transformer weights (250MB+)
-- TwiBot JSON datasets (multi-GB size)
-- Virtual environment ('.venv/')
-
-All training can be fully reproduced by users following the instructions below.
-
----
-
-## Datasets
-
-## Fake News Dataset
-Source:
-- HuggingFace dataset portal  
-- Example:  
-  https://huggingface.co/datasets/ErfanMoosaviMonazzah/fake-news-detection-dataset-English
-
-Downloaded using:
-python src/download_fake_news_hf.py
-
-## TwiBot-20 Dataset
-Source:
-- https://github.com/BunsenFeng/TwiBot-20
-
-Files used:
-- user.json
-- label.csv
-
-Feature extraction:
-python src/twibot_extract.py
-
-## Setup and Installation
-
-1. Clone the Repo
-
-git clone https://github.com/subashshrestha189/misinfo-bot-fakenews-capstone.git
-cd misinfo-bot-fakenews-capstone
-
-2. Create Virtual Environment
-
-python -m venv .venv
-.\.venv\Scripts\activate
-
-3. Install Requirements
-
-pip install -r requirements.txt
-
-## Model Training
-
-Fake News Baseline:
-python src/fake_news_baseline.py
-
-DistilBERT Fine-Tune:
-python src/fake_news_bert_train.py
-
-Bot Detection Training:
-python src/twibot_extract.py
-python src/bot_train_twibot.py
-python src/bot_train_cv_calibrated.py
-
-API Launch (FastAPI)
-uvicorn src.app:app --reload
-
-## Endpoints:
-- POST /analyze/article
-- POST /analyze/user
-
-Interactive documentation:
-http://127.0.0.1:8000/docs
-
-## Dashboard Launch (Streamlit)
-streamlit run src/dashboard.py
-
----
-
-## Performance Results
-
-## Bot Detection
-- Samples: 700,000 accounts
-- Accuracy: 92.2%
-- ROC-AUC: 0.77
-- Feature count: 20
-
-## Fake News Detection
-- Samples: ~5,000 articles
-- Base model: distilbert
-- Epochs: 1 (lightweight)
-- Accuracy: 76.5%
-- F1 score: 0.49
-
----
-
-## Team
-
-Subash Shrestha: Model integration, API deployment, GitHub management & documentation.
-
-Baburam Panta: Bot feature engineering and dataset preprocessing.
-
-Aman Bansal: Transformer fine-tuning.
-
-Laxman Neupane: Backend architecture.
-
-Sisam Kafle: Streamlit UX design.
-
-Aditya Sharma: Fake-news baseline modeling & evaluation.
-
----
-
-## Reproducibility
-
-This project is completely reproducible:
-
-- Install Python environment.
-- Download datasets from official sources.
-- Execute scripts for preprocessing.
-- Train the models.
-- Open the dashboard and API.
-
-Due to dataset license and size limits, raw data and weights are collected externally but pipelines are fully automated using this repository.
-
----
-
-## License
-
-Academic use only - Durham College Capstone Project
+Fake News Detection System
+A machine learning project implementing two approaches for automated fake news detection: a baseline TF-IDF + Logistic Regression model and an advanced DistilBERT transformer model.
+Project Overview
+This system classifies news articles into different subject categories to identify potential misinformation. The project demonstrates both traditional NLP techniques and modern deep learning approaches.
+Features
+
+Dual Model Architecture: Traditional ML and transformer-based models
+Fast Training: Optimized for quick fine-tuning on CPU/GPU
+Multi-class Classification: Supports multiple news subject categories
+Production-Ready: Includes inference utilities and model persistence
+
+Requirements
+pandas
+numpy
+scikit-learn
+joblib
+torch
+transformers
+Install dependencies:
+bashpip install pandas numpy scikit-learn joblib torch transformers
+Project Structure
+.
+├── data/
+│   └── fake_news/
+│       ├── fake_news_clean.csv
+│       └── fake_news_encoded.csv
+├── models/
+│   ├── fake_news_baseline/
+│   │   └── label_encoder.joblib
+│   ├── fake_news_v2/
+│   │   └── fake_news_tfidf_logreg_v2.joblib
+│   └── fake_news_bert_fast/
+│       ├── pytorch_model.bin
+│       ├── config.json
+│       └── tokenizer files
+├── fake_news_retrain.py
+├── fake_news_bert_train.py
+└── test_fake_news_bert.py
+Usage
+1. Train Baseline Model (TF-IDF + Logistic Regression)
+bashpython fake_news_retrain.py
+This script:
+
+Loads and preprocesses the dataset
+Filters out classes with insufficient samples
+Trains a TF-IDF vectorizer with Logistic Regression
+Evaluates on test set and saves the model
+
+Key Parameters:
+
+max_features=40000: TF-IDF vocabulary size
+ngram_range=(1, 2): Unigrams and bigrams
+max_iter=400: Logistic Regression iterations
+class_weight="balanced": Handles class imbalance
+
+2. Train BERT Model (DistilBERT)
+bashpython fake_news_bert_train.py
+This script:
+
+Loads a subset of data for fast training (5000 samples)
+Fine-tunes DistilBERT for sequence classification
+Saves model, tokenizer, and training metrics
+
+Key Parameters:
+
+MAX_LENGTH=128: Token sequence length
+BATCH_SIZE=8: Training batch size
+EPOCHS=1: Quick demonstration training
+SUBSET_SIZE=5000: Samples used for training
+
+Note: Adjust SUBSET_SIZE and EPOCHS for full training on complete dataset.
+3. Test BERT Model
+bashpython test_fake_news_bert.py
+Example inference:
+pythonfrom test_fake_news_bert import predict
+
+text = "Government announces new healthcare reform plan."
+subject, confidence = predict(text)
+print(f"Subject: {subject} (Confidence: {confidence:.3f})")
+Model Performance
+Baseline Model (TF-IDF + Logistic Regression)
+
+Fast training and inference
+Interpretable features
+Good baseline performance
+
+BERT Model (DistilBERT)
+
+State-of-the-art accuracy
+Contextual understanding
+Requires more computational resources
+
+Data Requirements
+The dataset should contain:
+
+content: News article text
+subject or label: Category labels
+
+Supported formats: CSV files with proper encoding.
+Configuration
+Baseline Model
+Edit fake_news_retrain.py:
+pythonDATA = Path("data/fake_news/fake_news_encoded.csv")
+MODEL_DIR = ensure_dir("models/fake_news_v2")
+BERT Model
+Edit fake_news_bert_train.py:
+pythonBASE_DIR = Path(__file__).resolve().parents[1]
+DATA_PATH = BASE_DIR / "data" / "fake_news" / "fake_news_clean.csv"
+ENCODER_PATH = BASE_DIR / "models" / "fake_news_baseline" / "label_encoder.joblib"
+OUT_DIR = BASE_DIR / "models" / "fake_news_bert_fast"
+Performance Optimization
+For CPU Training:
+
+Use smaller SUBSET_SIZE (2000-5000)
+Reduce MAX_LENGTH to 64
+Keep BATCH_SIZE at 8
+
+For GPU Training:
+
+Increase BATCH_SIZE to 16-32
+Use full dataset
+Increase EPOCHS to 3-5
+
+Troubleshooting
+Issue: "Missing dataset" error
+
+Ensure CSV files are in correct directories
+Check file paths in configuration
+
+Issue: Out of memory
+
+Reduce BATCH_SIZE
+Decrease MAX_LENGTH
+Use smaller SUBSET_SIZE
+
+Issue: Stratification error
+
+The code automatically filters classes with <2 samples
+Ensure dataset has balanced classes
+
+Future Improvements
+
+Implement cross-validation
+Add ensemble methods
+Expand to multi-label classification
+Deploy as REST API
+Add data augmentation techniques
+
+License
+This project is for educational purposes.
+Acknowledgments
+
+Uses Hugging Face Transformers library
+Built with scikit-learn and PyTorch
+DistilBERT model by Hugging Face
+
+Authors
+Aman - Student Project
